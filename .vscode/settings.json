@@ -1,0 +1,14 @@
+{
+    "cSpell.words": [
+        "Dtos",
+        "engenesis",
+        "unsend"
+    ],
+    "dart.lineLength": 80,
+    "[dart]": {
+        "editor.wordWrapColumn": 80,
+        "editor.rulers": [
+            80
+        ]
+    }
+}
