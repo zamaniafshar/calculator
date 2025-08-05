@@ -87,56 +87,56 @@ class Power extends MathOperator {
       BinaryExpression(left, this, right);
 }
 
-// Defines the base for programmer-specific bitwise operators.
-abstract class ProgrammerOperator implements OperatorStrategy {
-  // Applies the bitwise operator to two integer values.
-  int applyInt(int a, int b);
+// // Defines the base for programmer-specific bitwise operators.
+// abstract class ProgrammerOperator implements OperatorStrategy {
+//   // Applies the bitwise operator to two integer values.
+//   int applyInt(int a, int b);
 
-  @override
-  Expression create(Expression l, Expression r) => BinaryExpression(l, this, r);
-}
+//   @override
+//   Expression create(Expression l, Expression r) => BinaryExpression(l, this, r);
+// }
 
-// Represents the bitwise AND operator.
-class BitwiseAnd extends ProgrammerOperator {
-  @override
-  String get symbol => '&';
-  @override
-  int get precedence => 0;
-  @override
-  bool get isLeftAssociative => true;
-  @override
-  int applyInt(int a, int b) => a & b;
-  @override
-  Expression create(Expression left, Expression right) =>
-      BinaryExpression(left, this, right);
-}
+// // Represents the bitwise AND operator.
+// class BitwiseAnd extends ProgrammerOperator {
+//   @override
+//   String get symbol => '&';
+//   @override
+//   int get precedence => 0;
+//   @override
+//   bool get isLeftAssociative => true;
+//   @override
+//   int applyInt(int a, int b) => a & b;
+//   @override
+//   Expression create(Expression left, Expression right) =>
+//       BinaryExpression(left, this, right);
+// }
 
-// Represents the bitwise OR operator.
-class BitwiseOr extends ProgrammerOperator {
-  @override
-  String get symbol => '|';
-  @override
-  int get precedence => 0;
-  @override
-  bool get isLeftAssociative => true;
-  @override
-  int applyInt(int a, int b) => a | b;
-  @override
-  Expression create(Expression left, Expression right) =>
-      BinaryExpression(left, this, right);
-}
+// // Represents the bitwise OR operator.
+// class BitwiseOr extends ProgrammerOperator {
+//   @override
+//   String get symbol => '|';
+//   @override
+//   int get precedence => 0;
+//   @override
+//   bool get isLeftAssociative => true;
+//   @override
+//   int applyInt(int a, int b) => a | b;
+//   @override
+//   Expression create(Expression left, Expression right) =>
+//       BinaryExpression(left, this, right);
+// }
 
-// Represents the bitwise left shift operator.
-class ShiftLeft extends ProgrammerOperator {
-  @override
-  String get symbol => '<<';
-  @override
-  int get precedence => 0;
-  @override
-  bool get isLeftAssociative => true;
-  @override
-  int applyInt(int a, int b) => a << b;
-  @override
-  Expression create(Expression left, Expression right) =>
-      BinaryExpression(left, this, right);
-}
+// // Represents the bitwise left shift operator.
+// class ShiftLeft extends ProgrammerOperator {
+//   @override
+//   String get symbol => '<<';
+//   @override
+//   int get precedence => 0;
+//   @override
+//   bool get isLeftAssociative => true;
+//   @override
+//   int applyInt(int a, int b) => a << b;
+//   @override
+//   Expression create(Expression left, Expression right) =>
+//       BinaryExpression(left, this, right);
+// }

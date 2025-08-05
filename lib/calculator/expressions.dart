@@ -27,15 +27,7 @@ class BinaryExpression implements Expression {
 
   @override
   double evaluate() {
-    // Handle programmer-specific operators that work with integers.
-    if (op is ProgrammerOperator) {
-      return (op as ProgrammerOperator)
-          .applyInt(left.evaluate().toInt(), right.evaluate().toInt())
-          .toDouble();
-    } else {
-      // Handle standard mathematical operators.
-      return (op as MathOperator).apply(left.evaluate(), right.evaluate());
-    }
+    return (op as MathOperator).apply(left.evaluate(), right.evaluate());
   }
 }
 
