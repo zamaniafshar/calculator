@@ -2,51 +2,50 @@ import 'package:calculator/calculator/expressions.dart';
 import 'package:calculator/calculator/strategies.dart';
 
 // Builds an expression from a sequence of numbers and operators using the shunting-yard algorithm.
-class CalculatorBuilder {
-  CalculatorBuilder();
-
+class Calculator {
   final List<Expression> _values = [];
   final List<dynamic> _stack = [];
 
-  Expression build() {
-    clear();
-
+  double calculate() {
+    // Process all remaining operators in the stack
     while (_stack.isNotEmpty) {
       if (_stack.last == '(') throw StateError('Unmatched (');
       _pop();
     }
 
     if (_values.length != 1) throw StateError('Invalid expression');
-    return _values.single;
+    final expression = _values.single;
+    return expression.evaluate();
   }
 
-  CalculatorBuilder number(NumberExpression v) {
+  void number(NumberExpression v) {
     _values.add(v);
-    return this;
   }
 
-  CalculatorBuilder operatorSym(OperatorStrategy op) {
+  void operatorSym(OperatorStrategy op) {
     _shuntOperator(op);
-    return this;
   }
 
-  CalculatorBuilder functionName(FunctionStrategy fn) {
+  void functionName(FunctionStrategy fn) {
     _stack.add(fn);
-    return this;
   }
 
   // Handles a left parenthesis.
-  CalculatorBuilder leftParen() {
+  void leftParen() {
     _stack.add('(');
-    return this;
   }
 
   // Handles a right parenthesis.
-  CalculatorBuilder rightParen() {
-    while (_stack.isNotEmpty && _stack.last != '(') _pop();
+  void rightParen() {
+    while (_stack.isNotEmpty && _stack.last != '(') {
+      _pop();
+    }
+    // Check if we found a matching left parenthesis
+    if (_stack.isEmpty) {
+      throw StateError('Unmatched )');
+    }
     _stack.removeLast(); // Pop the '('
     if (_stack.isNotEmpty && _stack.last is FunctionStrategy) _pop();
-    return this;
   }
 
   // Implements the shunting-yard logic for handling operators.
