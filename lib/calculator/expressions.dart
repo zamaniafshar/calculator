@@ -19,22 +19,22 @@ class NumberExpression implements Expression {
 }
 
 // A composite node representing a binary operation (e.g., addition, subtraction).
-class BinaryExpression implements Expression {
+class DyadicExpression implements Expression {
   final Expression left;
   final Expression right;
-  final OperatorStrategy op;
-  BinaryExpression(this.left, this.op, this.right);
+  final DyadicOperator op;
+  DyadicExpression(this.left, this.op, this.right);
 
   @override
   double evaluate() {
-    return (op as MathOperator).apply(left.evaluate(), right.evaluate());
+    return op.apply(left.evaluate(), right.evaluate());
   }
 }
 
 // A composite node representing a function call (e.g., sin, log).
 class FunctionExpression implements Expression {
   final Expression argument;
-  final FunctionStrategy fn;
+  final FunctionOperator fn;
   FunctionExpression(this.fn, this.argument);
 
   @override
