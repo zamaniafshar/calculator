@@ -1,19 +1,12 @@
-final class CalculatorNotifierState {
-  CalculatorNotifierState({this.result, this.error, this.expression = ''});
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  final double? result;
-  final String expression;
-  final String? error;
+part 'calculator_state.freezed.dart';
 
-  CalculatorNotifierState copyWith({
+@freezed
+class CalculatorNotifierState with _$CalculatorNotifierState {
+  const factory CalculatorNotifierState({
     double? result,
-    String? expression,
+    @Default('') String expression,
     String? error,
-  }) {
-    return CalculatorNotifierState(
-      result: result ?? this.result,
-      expression: expression ?? this.expression,
-      error: error ?? this.error,
-    );
-  }
+  }) = _CalculatorNotifierState;
 }
