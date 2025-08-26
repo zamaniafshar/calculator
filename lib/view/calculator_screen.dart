@@ -2,7 +2,7 @@ import 'package:calculator/calculator/expressions.dart';
 import 'package:calculator/calculator/functions.dart';
 import 'package:calculator/calculator/operators.dart';
 import 'package:calculator/calculator/strategies.dart';
-import 'package:calculator/logic/calculator_notifier.dart';
+import 'package:calculator/bloc/calculator_notifier.dart';
 import 'package:calculator/view/calculator_buttons.dart';
 import 'package:calculator/view/math_button.dart';
 import 'package:flutter/cupertino.dart';

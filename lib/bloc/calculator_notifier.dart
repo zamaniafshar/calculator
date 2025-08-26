@@ -1,6 +1,6 @@
 import 'package:calculator/calculator/calculator.dart';
-import 'package:calculator/logic/calculator_state.dart';
-import 'package:calculator/logic/expression_validator.dart';
+import 'package:calculator/bloc/calculator_state.dart';
+import 'package:calculator/bloc/expression_validator.dart';
 import 'package:flutter/cupertino.dart';
 
 class CalculatorNotifier extends ValueNotifier<CalculatorNotifierState> {
