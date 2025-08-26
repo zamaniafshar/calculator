@@ -1,7 +1,7 @@
 import 'package:calculator/calculator/expression_tokenizer.dart';
-import 'package:calculator/calculator/expression_factory.dart';
+import 'package:calculator/calculator/token_factory.dart';
 import 'package:calculator/calculator/expressions.dart';
-import 'package:calculator/calculator/strategies.dart';
+import 'package:calculator/calculator/operators_base.dart';
 
 class Calculator {
   List _expressions = [];

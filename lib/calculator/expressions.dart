@@ -1,4 +1,4 @@
-import 'package:calculator/calculator/strategies.dart';
+import 'package:calculator/calculator/operators_base.dart';
 
 // Represents a component in a mathematical expression.
 // This is part of a composite pattern where expressions can be simple numbers

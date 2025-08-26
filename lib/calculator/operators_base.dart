@@ -1,13 +1,13 @@
 import 'package:calculator/calculator/expressions.dart';
 
-abstract class Operator {
+abstract interface class Operator {
   int get priority;
   bool get isLeftAssociative;
 }
 
 // Defines the interface for a binary operator in a mathematical expression.
 
-abstract class DyadicOperator implements Operator {
+abstract base class DyadicOperator implements Operator {
   // The precedence of the operator, used to determine the order of operations.
   // Whether the operator is left-associative.
   // Creates an expression node for this operator.
@@ -21,7 +21,7 @@ abstract class DyadicOperator implements Operator {
 }
 
 // Defines the interface for a function in a mathematical expression.
-abstract class FunctionOperator implements Operator {
+abstract base class FunctionOperator implements Operator {
   // Creates an expression node for this function.
   Expression create(Expression argument);
 
