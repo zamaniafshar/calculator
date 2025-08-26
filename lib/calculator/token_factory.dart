@@ -2,7 +2,7 @@ import 'package:calculator/calculator/expressions.dart';
 import 'package:calculator/calculator/operators.dart';
 
 /// Factory class for creating Expression instances based on tokens/symbols
-class ExpressionFactory {
+class TokenFactory {
   /// Creates an Expression based on the provided token
   /// - If token is a number, creates NumberExpression
   /// - If token is an operator symbol, returns the corresponding DyadicOperator

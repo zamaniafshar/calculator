@@ -10,7 +10,7 @@ class Calculator {
     try {
       _expressions.clear();
       final tokens = ExpressionTokenizer.tokenize(expression);
-      _expressions = tokens.map(ExpressionFactory.create).toList();
+      _expressions = tokens.map(TokenFactory.create).toList();
 
       return _calculate();
     } catch (e) {

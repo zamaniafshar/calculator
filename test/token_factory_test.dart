@@ -4,7 +4,7 @@ import 'package:calculator/calculator/operators.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  group('ExpressionFactory', () {
+  group('TokenFactory', () {
     group('number creation', () {
       _testNumberCreation('42', 42.0);
       _testNumberCreation('3.14', 3.14);
@@ -46,14 +46,14 @@ void main() {
 
 void _testOperatorCreation<T>(String operator) {
   return test('"$operator" should create $T operator', () {
-    final result = ExpressionFactory.create(operator);
+    final result = TokenFactory.create(operator);
     expect(result, isA<T>());
   });
 }
 
 void _testNumberCreation(String token, double expectedValue) {
   test('"$token" should create NumberExpression with value $expectedValue', () {
-    final result = ExpressionFactory.create(token);
+    final result = TokenFactory.create(token);
     expect(result, isA<NumberExpression>());
     expect(result.evaluate(), equals(expectedValue));
   });
@@ -61,6 +61,6 @@ void _testNumberCreation(String token, double expectedValue) {
 
 void _testException(String token, String testDescription) {
   test(testDescription, () {
-    expect(() => ExpressionFactory.create(token), throwsException);
+    expect(() => TokenFactory.create(token), throwsException);
   });
 }
