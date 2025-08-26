@@ -1,4 +1,4 @@
-import 'package:calculator/logic/calculator_notifier.dart';
+import 'package:calculator/bloc/calculator_notifier.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

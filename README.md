@@ -24,7 +24,7 @@ lib/
     functions.dart               # Function strategies (sin, log, sqrt) – infra ready
     priority_list.dart           # Centralized precedence + associativity helpers
     strategies.dart              # Operator abstractions (Strategy interfaces)
-  logic/
+  bloc/
     calculator_notifier.dart     # ValueNotifier façade for UI
     calculator_state.dart        # freezed state (immutable)
     expression_validator.dart    # User input validation & sanitization rules
