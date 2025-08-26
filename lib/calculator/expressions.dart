@@ -1,4 +1,3 @@
-import 'package:calculator/calculator/operators.dart';
 import 'package:calculator/calculator/strategies.dart';
 
 // Represents a component in a mathematical expression.

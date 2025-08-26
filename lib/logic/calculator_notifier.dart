@@ -1,18 +1,24 @@
 import 'package:calculator/calculator/calculator.dart';
-import 'package:calculator/calculator/expressions.dart';
-import 'package:calculator/calculator/strategies.dart';
 import 'package:calculator/logic/calculator_state.dart';
+import 'package:calculator/logic/expression_validator.dart';
 import 'package:flutter/cupertino.dart';
 
 class CalculatorNotifier extends ValueNotifier<CalculatorNotifierState> {
   CalculatorNotifier() : super(CalculatorNotifierState(expression: ''));
 
   final _calculator = Calculator();
+  final _validator = ExpressionValidator();
 
   void input(String symbol) {
-    value = value.copyWith(
-      expression: value.expression + symbol,
+    final updatedExpression = _validator.getUpdatedExpression(
+      value.expression,
+      symbol,
     );
+
+    value = value.copyWith(
+      expression: updatedExpression,
+    );
+
     _calculate();
   }
 
