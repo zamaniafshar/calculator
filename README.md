@@ -1,11 +1,11 @@
 # calculator
 
-Pattern‑Driven Calculator (Flutter/Dart)
+
 
 This repository showcases a small but robust calculator engine and UI-facing notifier built with a pattern-first mindset. The focus is on clean, extensible design using:
 
 - Strategy: `Operator`, `DyadicOperator`, `FunctionOperator` with concrete strategies in `operators.dart` and `functions.dart`.
-- Factory: `ExpressionFactory.create(token)` maps tokens to domain objects.
+- Factory: `TokenFactory.create(token)` maps tokens to domain objects.
 - Composite: `Expression` tree composed of `NumberExpression`, `DyadicExpression`, `FunctionExpression`.
 - Builder‑like composition: tokens are reduced into an expression tree step‑by‑step (tree assembly via operators’ `create`).
 - Observer (UI state): `CalculatorNotifier` extends `ValueNotifier<CalculatorNotifierState>` for reactive UI updates.
@@ -18,7 +18,7 @@ lib/
   calculator/
     calculator.dart              # Orchestrates tokenization, building, evaluation
     expression_tokenizer.dart    # Tokenizes expression (numbers/operators/parentheses)
-    expression_factory.dart      # Factory for Numbers/Operators
+    token_factory.dart           # Factory for Numbers/Operators
     expressions.dart             # Composite Expression types
     operators.dart               # Concrete Dyadic strategies (+, -, *, /, ^)
     functions.dart               # Function strategies (sin, log, sqrt) – infra ready
@@ -41,7 +41,7 @@ Design patterns in this codebase
   - `SinFn`, `LogFn`, `SqrtFn` in `functions.dart` (infrastructure present; see notes below).
 
 2) Factory (creation logic centralized)
-- `ExpressionFactory.create(token)` returns either a `NumberExpression` or a concrete operator strategy based on the token.
+- `TokenFactory.create(token)` returns either a `NumberExpression` or a concrete operator strategy based on the token.
 - Adding a new operator is a local change: define the strategy, register it in the factory, and (optionally) adjust `PriorityList`.
 
 3) Composite (uniform tree of expressions)
@@ -64,7 +64,7 @@ How calculation works
 - Current validator and factory primarily support numbers and dyadic operators; parentheses and functions are reserved for future extension.
 
 2) Building & reducing
-- Tokens → `ExpressionFactory` → list of `NumberExpression | Operator`.
+- Tokens → `TokenFactory` (in token_factory.dart) → list of `NumberExpression | Operator`.
 - While more than one element exists:
   - `_findHighestPriority()` selects the next operator to reduce.
   - For `DyadicOperator`, pick left/right neighbors and call `create(left, right)` → `DyadicExpression`.
@@ -112,13 +112,13 @@ Extending the engine
 
 Add a new dyadic operator (e.g., modulo `%`):
 1) Implement in `operators.dart` (give it a `priority` and `apply`).
-2) Register symbol in `ExpressionFactory._createOperator`.
+2) Register symbol in `TokenFactory._createOperator` (in token_factory.dart).
 3) If needed, add precedence to `PriorityList`.
 4) Add tests (precedence, associativity, edge cases like zero/negative inputs).
 
 Add a new function (e.g., `tan`):
 1) Implement in `functions.dart` (`apply`, `priority`, `create`).
-2) Update `ExpressionFactory` to map the `tan` token to the new function.
+2) Update `TokenFactory` (in token_factory.dart) to map the `tan` token to the new function.
 3) Extend `ExpressionTokenizer` and `ExpressionValidator` to accept letter tokens (e.g., `tan(` … `)`).
 4) Add tests.
 
