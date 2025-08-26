@@ -1,5 +1,7 @@
 # calculator
 
+![Calculator Screenshot](https://github.com/zamaniafshar/calculator/blob/87f8575baed9e23fe287371c36bebc871e7ee593/resources/Screenshot%202025-08-26%20at%2017.10.01.png)
+
 
 
 This repository showcases a small but robust calculator engine and UI-facing notifier built with a pattern-first mindset. The focus is on clean, extensible design using:
