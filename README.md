@@ -87,57 +87,143 @@ Input validation rules (UX)
 
 Testing
 
-Feature tests in `test/calculator_notifier_test.dart` cover:
-- Initial state and incremental input (char‑by‑char) with live calculation.
-- `getResult()` behavior (replaces expression with final value, clears result).
-- `clear()` and `deleteLast()` semantics.
-- Operator replacement and decimal rules.
-- Operator precedence and power right‑associativity.
-- Division by zero behavior (`Divide.apply` returns `0` by design here).
-- Error surfacing and clearing.
+Testing and Quality Assurance
 
-Run tests:
+The project includes comprehensive test coverage to ensure reliability and correctness:
 
+### Unit Tests
+Located in `test/calculator_test.dart`:
+- Core calculation logic
+- Operator precedence and associativity
+- Edge cases and error handling
+
+### Integration Tests
+Located in `test/calculator_notifier_test.dart`:
+```dart
+// Example test structure
+void main() {
+  group('CalculatorNotifier', () {
+    test('basic operations', () {
+      // Tests for +, -, *, /, ^
+    });
+    test('decimal handling', () {
+      // Tests for proper decimal point behavior
+    });
+    // ... more test groups
+  });
+}
 ```
-flutter test
-```
 
-SOLID‑friendly design
+### Running Tests
+1. Ensure you have Flutter installed and setup
+2. Run the test suite:
+   ```bash
+   flutter test
+   ```
+3. For coverage report:
+   ```bash
+   flutter test --coverage
+   ```
 
-- Single Responsibility: tokenization, validation, operators, expressions, calculator orchestration, and UI state are separated.
-- Open/Closed: add operators/functions without modifying existing evaluation logic; mostly register in the factory and (if needed) update `PriorityList`.
-- Liskov Substitution: all operators honor the `Operator` contract; substitutable at call sites.
-- Interface Segregation: slim, focused interfaces (`DyadicOperator`, `FunctionOperator`).
-- Dependency Inversion (pragmatic): UI depends on the abstract notifier interface (`ValueListenable` semantics). For greater testability, inject `Calculator`/`ExpressionValidator` into `CalculatorNotifier`.
+SOLID-friendly Design Principles
+--------------------------------
+Our codebase strictly adheres to SOLID principles:
 
-Extending the calculator core
+- **S**ingle Responsibility: Each class has one focused purpose
+- **O**pen/Closed: Extensible for new operators without modifying existing code
+- **L**iskov Substitution: All operators follow the same contract
+- **I**nterface Segregation: Minimal, focused interfaces
+- **D**ependency Inversion: UI depends on abstractions
 
-Add a new dyadic operator (e.g., modulo `%`):
-1) Implement in `operators.dart` (give it a `priority` and `apply`).
-2) Register symbol in `TokenFactory._createOperator` (in token_factory.dart).
-3) If needed, add precedence to `PriorityList`.
-4) Add tests (precedence, associativity, edge cases like zero/negative inputs).
+How to Contribute
+----------------
 
-Add a new function (e.g., `tan`):
-1) Implement in `functions.dart` (`apply`, `priority`, `create`).
-2) Update `TokenFactory` (in token_factory.dart) to map the `tan` token to the new function.
-3) Extend `ExpressionTokenizer` and `ExpressionValidator` to accept letter tokens (e.g., `tan(` … `)`).
-4) Add tests.
+We welcome contributions! Here's how you can help:
 
-Parentheses support (roadmap idea)
+### Setting Up Development Environment
+1. Fork the repository
+2. Clone your fork:
+   ```bash
+   git clone https://github.com/YOUR_USERNAME/calculator.git
+   ```
+3. Install dependencies:
+   ```bash
+   flutter pub get
+   ```
 
-Currently, parentheses are tokenized but not yet interpreted by the reducer. Options to add support:
-- Implement a shunting‑yard algorithm to convert to RPN, then build a tree.
-- Or perform recursive descent parsing where parentheses spawn sub‑reductions.
+### Making Changes
+1. Create a new branch:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+2. Make your changes
+3. Run tests to ensure nothing breaks:
+   ```bash
+   flutter test
+   ```
+4. Commit with a descriptive message:
+   ```bash
+   git commit -m "Add: brief description of your changes"
+   ```
 
-Behavioral notes and trade‑offs
+### Submitting Changes
+1. Push to your fork
+2. Create a Pull Request with:
+   - Clear description of changes
+   - Any related issues
+   - Screenshots for UI changes
+   - Test coverage for new features
 
-- Division by zero currently returns `0` (see `Divide.apply`); you may change this to throw or return `double.infinity` based on product requirements.
-- Negative numbers: the `ExpressionValidator` allows leading `-`, but unary minus isn’t modeled as a distinct operator yet. Consider adding a unary operator or parser support if you need robust negatives.
-- Functions infrastructure exists but isn’t wired through the validator/factory by default.
+### Contribution Guidelines
+- Follow Flutter/Dart style guide
+- Add tests for new features
+- Update documentation as needed
+- Keep commits focused and atomic
+- Use meaningful commit messages
+
+### Need Help?
+- Open an issue for bugs or feature requests
+- Ask questions in discussions
+- Check existing issues and PRs
+
+### What You Can Contribute
+
+We have several exciting areas where you can make meaningful contributions:
+
+#### 1. Parentheses Support
+The calculator currently tokenizes parentheses but doesn't interpret them. You can help by:
+
+- Adding recursive descent parsing for nested expressions
+- Writing comprehensive tests for parentheses handling
+- Updating the UI to support parentheses input
 
 
 
-License
+#### 2. Negative Numbers Support
+Enhance the calculator's handling of negative numbers by:
+- Implementing a proper unary minus operator
+- Updating the expression validator for negative number input
+- Adding tests for negative number edge cases
+- Improving the UI for negative number display
 
-MIT 
+#### 3. Mathematical Functions
+Help expand the calculator's capabilities by adding:
+- Trigonometric functions (sin, cos, tan)
+- Logarithmic functions (log, ln)
+- Power functions (sqrt, cube root)
+- Constants (π, e)
+
+#### 4. User Interface Improvements
+- Add scientific calculator mode
+- Implement history feature
+- Add memory functions (M+, M-, MR, MC)
+- Improve accessibility features
+
+
+Each contribution should:
+- Follow the existing design patterns
+- Include comprehensive tests
+- Update relevant documentation
+- Consider edge cases and error handling
+
+Pick an area that interests you and check our issues page for related tasks or create a new issue to discuss your implementation approach.
