@@ -4,7 +4,7 @@
 
 
 
-This repository showcases a small but robust calculator engine and UI-facing notifier built with a pattern-first mindset. The focus is on clean, extensible design using:
+This repository showcases a small but robust calculator core and UI-facing notifier built with a pattern-first mindset. The focus is on clean, extensible design using:
 
 - Strategy: `Operator`, `DyadicOperator`, `FunctionOperator` with concrete strategies in `operators.dart` and `functions.dart`.
 - Factory: `TokenFactory.create(token)` maps tokens to domain objects.
@@ -110,7 +110,7 @@ SOLID‑friendly design
 - Interface Segregation: slim, focused interfaces (`DyadicOperator`, `FunctionOperator`).
 - Dependency Inversion (pragmatic): UI depends on the abstract notifier interface (`ValueListenable` semantics). For greater testability, inject `Calculator`/`ExpressionValidator` into `CalculatorNotifier`.
 
-Extending the engine
+Extending the calculator core
 
 Add a new dyadic operator (e.g., modulo `%`):
 1) Implement in `operators.dart` (give it a `priority` and `apply`).
@@ -134,14 +134,9 @@ Behavioral notes and trade‑offs
 
 - Division by zero currently returns `0` (see `Divide.apply`); you may change this to throw or return `double.infinity` based on product requirements.
 - Negative numbers: the `ExpressionValidator` allows leading `-`, but unary minus isn’t modeled as a distinct operator yet. Consider adding a unary operator or parser support if you need robust negatives.
-- Functions infrastructure exists but isn’t wired through the validator/factory by default. See “Extending the engine”.
+- Functions infrastructure exists but isn’t wired through the validator/factory by default.
 
-Local development
 
-```
-flutter run
-flutter test
-```
 
 License
 
